@@ -19,5 +19,5 @@ function createBat() {
     }, duration * 1000);
 }
 
-// Crear un murciélago cada 1.5 segundos
+
 setInterval(createBat, 1500);
