@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Encuentro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #8a2be2;
+            --text: #e0e0e0;
+            --glass: rgba(20, 20, 20, 0.8);
+            --petal-color: #1a0000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #1a1a1a 1%, transparent 1%);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        #bat-container, #petal-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bat {
+            position: absolute;
+            font-size: 25px;
+            filter: drop-shadow(0 0 5px rgba(138, 43, 226, 0.5));
+            animation: fly linear forwards;
+        }
+
+        .petal {
+            position: absolute;
+            background: var(--petal-color);
+            width: 15px; height: 20px;
+            border-radius: 50% 0 50% 50%;
+            box-shadow: inset -2px -2px 5px #000;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fly {
+            0% { transform: translate(-10%, 110vh) rotate(0deg); }
+            100% { transform: translate(110%, -10vh) rotate(20deg); }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+        }
+
+        .glass-card {
+            background: var(--glass);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(15px);
+            text-align: center;
+            max-width: 400px;
+            z-index: 10;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .glitch {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            letter-spacing: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 5px var(--accent); }
+            50% { text-shadow: 0 0 20px var(--accent); }
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 1.5rem 0;
+        }
+
+        .music-player {
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .tag {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            padding: 4px 10px;
+            margin: 4px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .cyber-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 24px;
+            border: 1px solid var(--accent);
+            color: #fff;
+            text-decoration: none;
+            background: rgba(138, 43, 226, 0.1);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .cyber-btn:hover {
+            background: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+            transform: translateY(-3px);
+        }
+
+        #visitor-counter {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div id="bat-container"></div>
+    <div id="petal-container"></div>
+
+    <audio id="guitar-riff" src="riff.mp3"></audio>
+
+    <main class="container">
+        <section class="glass-card">
+            <h1 class="glitch">HELLO_STRANGER</h1>
+            <div class="divider"></div>
+            
+            <p>Vi tu estilo y me pareció interesante. No sabía cómo acercarme, así que dejé que mi código hablara por mí.</p>
+
+            <div class="music-player">
+                <iframe src="https://open.spotify.com/embed/track/5sVf9kN90ScddiT3SdT9Qh?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+
+            <div>
+                <span class="tag">Systems Engineer</span>
+                <span class="tag">Guitarist</span>
+                <span class="tag">CS 2 Skin Designer</span>
+                <span class="tag">Guns N' Roses Fan</span>
+                <span class="tag">Web Designer</span>
+            </div>
+
+            <a href="https://www.instagram.com/weircxxre/" class="cyber-btn" onmouseover="playRiff()">
+                CONTACTO
+            </a>
+            
+            <div id="visitor-counter">Visualizaciones: <span id="count">1</span></div>
+        </section>
+    </main>
+
+    <script>
+        // Murciélagos
+        function createBat() {
+            const container = document.getElementById('bat-container');
+            const bat = document.createElement('div');
+            bat.className = 'bat';
+            bat.innerText = '🦇';
+            bat.style.left = Math.random() * 100 + "vw";
+            const duration = Math.random() * 4 + 4;
+            bat.style.animationDuration = duration + "s";
+            container.appendChild(bat);
+            setTimeout(() => bat.remove(), duration * 1000);
+        }
+        setInterval(createBat, 1200);
+
+        // Pétalos
+        function createPetal() {
+            const container = document.getElementById('petal-container');
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + "vw";
+            const duration = Math.random() * 7 + 5;
+            petal.style.animationDuration = duration + "s";
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), duration * 1000);
+        }
+        setInterval(createPetal, 2000);
+
+        // Guitarra
+        function playRiff() {
+            const audio = document.getElementById('guitar-riff');
+            audio.volume = 0.4;
+            audio.play().catch(() => {});
+        }
+
+        // Contador
+        let count = localStorage.getItem('visitas') || 0;
+        count++;
+        localStorage.setItem('visitas', count);
+        document.getElementById('count').innerText = count;
+    </script>
+</body>
+</html>
